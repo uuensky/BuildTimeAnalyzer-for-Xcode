@@ -11,6 +11,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var cancelButton: NSButton!
     @IBOutlet weak var compileTimeTextField: NSTextField!
     @IBOutlet weak var derivedDataTextField: NSTextField!
+    @IBOutlet weak var defaultDerivedDataButton: NSButton!
     @IBOutlet weak var instructionsView: NSView!
     @IBOutlet weak var leftButton: NSButton!
     @IBOutlet weak var perFileButton: NSButton!
@@ -162,6 +163,10 @@ class ViewController: NSViewController {
         projectSelection.listFolders()
     }
     
+    @IBAction func defaultDerivedDataLocation(_ sender: NSButton) {
+        guard let libraryFolder = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first else { return }
+        derivedDataTextField.stringValue = "\(libraryFolder)/Developer/Xcode/DerivedData"
+    }
     func controlTextDidChange(_ obj: Notification) {
         if let field = obj.object as? NSSearchField, field == searchField {
             dataSource.filter = searchField.stringValue
